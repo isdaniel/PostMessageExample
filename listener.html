@@ -1,0 +1,31 @@
+<html>
+
+<head>
+    <title></title>
+    <script src="./lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        function receiveMessage(event) {
+            //event參數裡面有data屬性代表接收資料
+            $('#txt_show').html(event.data);
+        }
+
+        $(function () {
+            window.addEventListener("message", receiveMessage);
+        });
+
+        function postMessage()
+        {
+            var $val = $('#txt_val').val();
+            //第一個參數傳出去的值,第二個參數限定的網域
+            window.parent.postMessage($val,'*');
+        }
+    </script>
+</head>
+
+<body>
+    <div id="txt_show"></div>
+    <button onclick="postMessage();">提交</button>
+    <input id="txt_val" type="text" value="從子頁面傳出的資料!!" />
+</body>
+
+</html>

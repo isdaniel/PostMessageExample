@@ -1,0 +1,30 @@
+<html>
+
+<head>
+  <title></title>
+  <script src="./lib/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript">
+    //將資料提交到Iframe裡面
+    function postMessage() {
+      var $txt_val = $('#txt_val').val();
+      //第一個參數傳出去的值,第二個參數限定的網域
+      window.frames[0].postMessage($txt_val, '*');
+    }
+    $(function () {
+      //增加接收的方法 使用匿名labda方法
+      //event參數裡面有data屬性代表接收資料
+      window.addEventListener('message', (event) => {
+        $('#txt_show').html(event.data);
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <input id="txt_val" type="text" />
+  <button onclick="postMessage()">提交</button>
+  <div id="txt_show"></div>
+  <iframe src="listener.html"></iframe>
+</body>
+
+</html>
